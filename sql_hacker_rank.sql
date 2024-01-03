@@ -60,6 +60,24 @@ order by cnt desc,s.hacker_id);
 
 
 --------------------------------------------------------------------------------------
+-------------------------------------Olivander's Inventory-------------------------------------------------
+
+
+-------------------------------------Olivander's Inventory-------------------------------------------------
+
+
+-------------------------------------Challenge-------------------------------------------------
+select h.hacker_id,h.name,count(c.challenge_id) cnt
+from hackers h join challenges c on h.hacker_id = c.hacker_id
+group by h.hacker_id,h.name
+having count(c.challenge_id) = (select max(cnt) from
+(SELECT count(c1.challenge_id)cnt  FROM Challenges c1
+GROUP BY c1.hacker_id ORDER BY cnt desc)) 
+or count(c.challenge_id) not in (select count(c1.challenge_id) from challenges c1       group by c1.hacker_id
+having c1.hacker_id <> h.hacker_id)
+order by cnt desc,h.hacker_id;
+-------------------------------------Challenge-------------------------------------------------
+
 
 
 
